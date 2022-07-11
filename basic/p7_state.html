@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>state</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script type="text/babel">
+      class ChangeWeather extends React.Component {
+        // 构造器方法
+        constructor(props) {
+          //构造器中的this,指实例对象
+          super(props);
+          this.state = { isHot: false };
+        }
+        render() {
+          //   console.log(this);
+          //   const isHot = this.state.isHot
+          //   return <h2>It's really {isHot? "hot":"cool"} today!</h2>;
+          // 解构赋值
+          //   demo() - 调用函数，undefined作为回调
+          //   demo - 制定函数
+          const { isHot } = this.state;
+          return (
+            <h2 onClick={this.change}>
+              It's really {isHot ? "hot" : "cool"} today!
+            </h2>
+          );
+        }
+        change() {
+           
+        }
+      }
+
+      ReactDOM.render(<ChangeWeather />, document.getElementById("test"));
+
+      //   const title = document.getElementById("title");
+      //  尽量避免用原生的方式
+      //   title.addEventListener("click",()=>{
+      //
+      //   })
+      //   title.onclick = () =>{
+      //     console.log("标题被点击了");
+      //   }
+    </script>
+  </body>
+</html>

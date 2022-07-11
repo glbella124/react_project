@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用jsx创建虚拟DOM</title>
+  </head>
+  <body>
+    <div id="myDiv"></div>
+    <!-- react核心库 -->
+    <script src="../js/react.development.js"></script>
+    <!-- 引入react-dom, 支持react操作dom -->
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 引入babel, 将jsx转为js -->
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /* 此处一定要写babel */
+      // 创建虚拟DOM,渲染虚拟dom到页面
+      // 虚拟DOM,不需要加引号，不是字符串
+      const vDOM = (
+        <div>
+          Welcome to my website
+          <span>
+            <b> friends</b>
+          </span>
+        </div>
+      );
+      // 参数 - which dom, where容器, React未提供选择器写法
+      // Jquery封装了很多高级操作DOM的方法，不宜在React中使用
+      // You are using the in-browser Babel transformer. 
+      // Be sure to precompile your scripts for production
+      // 不是js，现翻译babel,代码多会白屏，真实开发不会用这种方式
+      ReactDOM.render(vDOM, document.getElementById("myDiv"));
+
+      const TDOM = document.getElementById("myDiv")
+
+      console.log("虚拟dom",vDOM);
+      console.log("真实DOM",TDOM);
+
+      debugger
+    </script>
+  </body>
+</html>

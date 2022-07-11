@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class练习</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        speak() {
+          console.log(`My name is ${this.name} and my age is ${this.age}`);
+        }
+      }
+
+    //   const p1 = new Person("Bella", "20");
+    //   p1.speak();
+
+      class Study extends Person {
+        constructor(name, age, grade) {
+          super(name, age);
+        }
+        speak() {
+          console.log(
+            `My name is ${this.name}, my age is ${this.age} and my grade is ${this.grade}`
+          );
+          this.study()
+        }
+        study(){
+            console.log("I work hard");
+        }
+      }
+
+      const st1 = new Study("Edward","30")
+      st1.speak()
+
+    </script>
+  </body>
+</html>
