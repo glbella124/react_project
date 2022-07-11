@@ -97,11 +97,81 @@ key用小驼峰
 
 
 
+## 严格模式
 
+禁止自定义的this指向window
+Babel编译后开启严格模式
 
+## 函数式组件/类式组件
 
+类式组件里的render放在类的原型对象上，供实例使用
 
+React dom.render
+react解析组件标签，找到组件
+发现组件***由函数定义***，调用函数，将返回的虚拟dom转为真实dom呈现在页面上
 
+发现组件***由类定义的***，随后new出来该类实例，并通过该实例调用到原型上的render方法
+将render返回的虚拟dom转为真实dom，呈现在页面中
+
+## 组件实例的三大核心属性
+
+state
+
+组件状态驱动页面
+
+组件中的数据改变会驱动页面改变
+
+## 类组件中的this指向
+
+```javascript
+class ChangeWeather extends React.Component {
+        // 构造器方法
+        constructor(props) {
+          //构造器中的this,指实例对象
+          super(props);
+          this.state = { isHot: false };
+        }
+        render() {
+          //   console.log(this);
+          //   const isHot = this.state.isHot
+          //   return <h2>It's really {isHot? "hot":"cool"} today!</h2>;
+          // 解构赋值
+          //   demo() - 调用函数，undefined作为回调
+          //   demo - 制定函数
+          const { isHot } = this.state;
+          //   沿着类的原型链找到了change函数，直接将该函数交给onClick作为回调
+          return (
+            <h2 onClick={this.change}>
+              It's really {isHot ? "hot" : "cool"} today!
+            </h2>
+          );
+        }
+        change() {
+            // 由于change作为onClick的回调，直接调用不是通过实例调用的
+            // 类中的方法，默认开启了局部的严格模式
+            console.log(this);
+            
+        }
+      }
+
+      ReactDOM.render(<ChangeWeather />, document.getElementById("test"));
+```
+
+#### 严格模式？
+
+在普通模式中，如果一个变量没有声明就赋值，默认是全局变量，严格模式禁止这种用法，变量都必须先用var命令声明，然后再使用。
+
+- 以前在全局作用域函数中的this指向window对象。
+- ***严格模式下全局作用域中函数中的this是undefined***。
+- 以前构造函数时不加new也可以调用，当普通函数，this指向全局对象。
+- 严格模式下，***如果构造函数不加new调用，this会报错***。
+- new实例化的构造函数指向创建的对象实例。
+- 定时器this还是指向window。
+- 事件、对象还是指向调用者。
+
+参考博文：
+
+https://blog.csdn.net/m0_61843874/article/details/123247934
 
 
 
