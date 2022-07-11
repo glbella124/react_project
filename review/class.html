@@ -14,12 +14,16 @@
           this.age = age;
         }
         speak() {
+          // 通过实例调用speak方法
+          console.log(this);
           console.log(`My name is ${this.name} and my age is ${this.age}`);
         }
       }
 
-    //   const p1 = new Person("Bella", "20");
-    //   p1.speak();
+      const p1 = new Person("Bella", "20");
+      p1.speak();
+      
+      
 
       class Study extends Person {
         constructor(name, age, grade) {
@@ -29,16 +33,15 @@
           console.log(
             `My name is ${this.name}, my age is ${this.age} and my grade is ${this.grade}`
           );
-          this.study()
+          this.study();
         }
-        study(){
-            console.log("I work hard");
+        study() {
+          console.log("I work hard");
         }
       }
 
-      const st1 = new Study("Edward","30")
-      st1.speak()
-
+      const st1 = new Study("Edward", "30");
+      st1.speak();
     </script>
   </body>
 </html>

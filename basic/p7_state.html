@@ -16,8 +16,11 @@
         // 构造器方法
         constructor(props) {
           //构造器中的this,指实例对象
+          //   无论继承与否，构造器中的this是类的实例对象
           super(props);
           this.state = { isHot: false };
+          //   解决changeWeather中的this指向问题
+          this.weather = this.change.bind(this);
         }
         render() {
           //   console.log(this);
@@ -27,14 +30,20 @@
           //   demo() - 调用函数，undefined作为回调
           //   demo - 制定函数
           const { isHot } = this.state;
+          //   沿着类的原型链找到了change函数，直接将该函数交给onClick作为回调
           return (
-            <h2 onClick={this.change}>
+            <h2 onClick={this.weather}>
               It's really {isHot ? "hot" : "cool"} today!
             </h2>
           );
         }
         change() {
-           
+          // 发现组件是使用类定义的，随后new出来该类的实例，并通过该实例调用到原型上的render方法。
+          // React
+          // 通过Weather实例调用change时，change中的this就是Weather的实例对象
+          // 由于change作为onClick的回调，直接调用,不是通过实例调用的
+          // 类中的方法，默认开启了局部的严格模式 - change中的this为undefined
+          console.log(this, "change");
         }
       }
 
