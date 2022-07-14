@@ -115,11 +115,20 @@ react解析组件标签，找到组件
 
 ## 组件实例的三大核心属性
 
-state
+### state
 
-组件状态驱动页面
+1. 组件被称为“状态机”，通过更新组件state更新对应的页面显示（频繁调用render- 重新渲染组件），组件维护状态，状态存着数据
+2. 组件render中的this为组件实例对象
+3. 自定义方法中this为undefined (作为事件回调)
+   <!-- 强制绑定this -->
+    this.weather = this.change.bind(this);
+    <!-- 箭头函数 -->
+    change = () => {
+          const isHot = this.state.isHot;
+          this.setState({ isHot: !isHot });
+        };
+4. 状态数据修改 - setState
 
-组件中的数据改变会驱动页面改变
 
 ## 类组件中的this指向
 
@@ -172,6 +181,61 @@ class ChangeWeather extends React.Component {
 参考博文：
 
 https://blog.csdn.net/m0_61843874/article/details/123247934
+
+### props
+传递标签属性
+### refs
+#### 类式
+1. 字符串ref - 不推荐，效率低
+
+2. 回调函数 - 内联函数
+
+   问题：调用两次，第一次为null,会清空节点
+
+   ```javascript
+   <input ref={(c) => {this.input1 = c}} type="text" placeholder="请输入文本"/
+   ```
+
+   ```javascript
+   saveInput = (c)=>{
+                   // 把接到的节点挂在了Input1上
+                   this.input1 = c;
+                   console.log(c,"***");
+   
+               }
+   
+               // this.input1,箭头函数没有自己的this,会指向外层render,类的实施
+               // 内联函数 - 标签内部直接去定义一个函数
+               // 回调refs - 更新过程中被执行两次
+               render() {
+                   const { isHot } = this.state;
+                   const dom = (
+                       <div>
+                           <h3 onClick={this.changeWeather}>
+                               It's really {isHot ? "hot" : "cool"} today
+                           </h3>
+                            {/*回调函数单独写在外面，可以解决render时为null的情况*/}
+                           <input ref={this.saveInput} type="text"/><br/><br/>
+                           
+   
+                           <button onClick={this.clickEvent}>显示提示文本</button>
+                           <button onClick={this.changeWeather}>切换天气</button>
+                       </div>
+                   );
+                   return dom;
+               }
+   ```
+
+   
+
+3. React.createRef() - 使用内置api
+
+   
+##### 回调函数
+1. 自定义的函数
+2. 没有调用
+3. 函数最终执行了
+   
 
 
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>react事件处理</title>
+  </head>
+  <body>
+    <div id="person"></div>
+
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+      class Person extends React.Component {
+        // React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点
+        // 只能存一个
+        // 目前ref最推荐的一种形式
+        myRef = React.createRef();
+        myRef2 = React.createRef();
+        state = { isHot: true };
+
+        showData = () => {
+          alert(this.myRef.current.value);
+        };
+        showData2 = ()=>{
+           alert(this.myRef2.current.value) 
+        }
+        render() {
+          const { isHot } = this.state;
+          const dom = (
+            <div>
+              <input
+                type="text"
+                ref={this.myRef}
+                placeholder="点击按钮提示数据"
+              />
+              <br />
+              <button onClick={this.showData}>点击提示左侧数据</button>
+              <input
+                onBlur={this.showData2}
+                type="text"
+                ref={this.myRef2}
+                placeholder="点击按钮提示数据"
+              />
+            </div>
+          );
+          return dom;
+        }
+      }
+
+      ReactDOM.render(<Person />, document.getElementById("person"));
+    </script>
+  </body>
+</html>

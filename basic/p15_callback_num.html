@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>回调函数执行次数的问题</title>
+</head>
+
+<body>
+    <div id="people"></div>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 用于对组件标签属性进行限制 PropTypes -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        // 字符串类型的ref未来会废除
+        class Demo extends React.Component {
+            state = { isHot: true };
+
+            changeWeather = () => {
+                console.log("changeWeather");
+                const { isHot } = this.state;
+                this.setState({ isHot: !isHot });
+            };
+            // 自定义方法 - 要用赋值语句的形式 + 箭头函数
+            clickEvent = () => {
+                // refs - 属性
+                const { input1 } = this;
+                alert(input1.value);
+            };
+            showInfo = () => {
+                const { input2 } = this;
+                alert(input2.value);
+            };
+
+            saveInput = (c)=>{
+                // 把接到的节点挂在了Input1上
+                this.input1 = c;
+                console.log(c,"***");
+
+            }
+
+            // this.input1,箭头函数没有自己的this,会指向外层render,类的实施
+            // 内联函数 - 标签内部直接去定义一个函数
+            // 回调refs - 更新过程中被执行两次
+            render() {
+                const { isHot } = this.state;
+                const dom = (
+                    <div>
+                        <h3 onClick={this.changeWeather}>
+                            It's really {isHot ? "hot" : "cool"} today
+                        </h3>
+                        <input ref={this.saveInput} type="text"/><br/><br/>
+                        {/*
+                <input
+                  ref={(c) => {
+                    this.input1 = c;
+                    console.log("@", c);
+                  }}
+                  type="text"
+                  placeholder="请输入文本"
+                />*/}
+
+                        <button onClick={this.clickEvent}>显示提示文本</button>
+                        <button onClick={this.changeWeather}>切换天气</button>
+                    </div>
+                );
+                return dom;
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById("people"));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>props</title>
+  </head>
+  <body>
+    <div id="people"></div>
+    <div id="child"></div>
+    <div id="old"></div>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 用于对组件标签属性进行限制 PropTypes -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+      // props只读，不可以修改
+      class Person extends React.Component {
+        // 类中的构造器能省略就省略
+        constructor(props) {
+          // 构造器是否接收props,是否传递给super,取决于是否希望在构造器中通过this访问props
+          super(props);
+          console.log(this.props);
+        }
+
+        // 限制props - 类型，必要性
+        //  PropTypes - react内置属性
+        //   属性限制写在类内部
+
+        static propTypes = {
+          name: PropTypes.string.isRequired,
+          age: PropTypes.number,
+          speak: PropTypes.func,
+          hobby: PropTypes.array,
+          more: PropTypes.object,
+        };
+        // 制定默认值
+        // 类内部直接定义
+        static defaultProps = {
+          gender: "unknown",
+          age: 17,
+        };
+
+        state = { a: 1, b: 3 };
+
+        render() {
+          const { name, age, gender, hobby } = this.props;
+          // props只读，不可以修改
+          //   无效
+          //   this.props.age = Number(age) + 1
+          const dom = (
+            <ul>
+              <li>{name}</li>
+              <li>{Number(age) + 1}</li>
+              <li>{gender}</li>
+              <li>{hobby}</li>
+            </ul>
+          );
+          return dom;
+        }
+      }
+
+      const p = { name: "Bella", age: 18, hobby: ["tennis", "swim"] };
+
+      ReactDOM.render(<Person {...p} />, document.getElementById("people"));
+      ReactDOM.render(
+        <Person name="Alice" age={20} gender="female" />,
+        document.getElementById("child")
+      );
+      ReactDOM.render(
+        <Person name="Jacob" gender="male" speak={speak} />,
+        document.getElementById("old")
+      );
+
+      function speak() {
+        console.log("speak");
+      }
+    </script>
+  </body>
+</html>

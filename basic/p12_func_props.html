@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>函数式组件使用props</title>
+  </head>
+  <body>
+    <div id="people"></div>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 用于对组件标签属性进行限制 PropTypes -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+      // 函数式组件只能用props
+      function Person(props) {
+        const { name, age, gender } = props;
+        const dom = (
+          <ul>
+            <li>{name}</li>
+            <li>{Number(age) + 1}</li>
+            <li>{gender}</li>
+          </ul>
+        );
+        return dom;
+      }
+      Person.propTypes = {
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number,
+      };
+      // 制定默认值
+      // 类内部直接定义
+      Person.defaultProps = {
+        gender: "unknown",
+        age: 17,
+      };
+      ReactDOM.render(
+        <Person name="Bella" age={26} gender="female" />,
+        document.getElementById("people")
+      );
+    </script>
+  </body>
+</html>

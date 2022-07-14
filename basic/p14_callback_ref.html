@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>回调函数类型的ref</title>
+  </head>
+  <body>
+    <div id="people"></div>
+    <script src="../js/babel.min.js"></script>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 用于对组件标签属性进行限制 PropTypes -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+      // 字符串类型的ref未来会废除
+      class Demo extends React.Component {
+        // 自定义方法 - 要用赋值语句的形式 + 箭头函数
+        clickEvent = () => {
+          // refs - 属性
+          const { input1 } = this;
+          alert(input1.value);
+        };
+        showInfo = () => {
+          const { input2 } = this;
+          alert(input2.value);
+        };
+        // this.input1,箭头函数没有自己的this,会指向外层render,类的实施
+        render() {
+          const dom = (
+            <div>
+              <input
+                ref={(c) => {this.input1 = c}}
+                type="text"
+                placeholder="请输入文本"
+              />
+              <button onClick={this.clickEvent}>显示提示文本</button>
+              <input
+                ref={(c)=>{this.input2 = c}}
+                onBlur={this.showInfo}
+                placeholder="失去焦点提示数据"
+              />
+            </div>
+          );
+          return dom;
+        }
+      }
+      ReactDOM.render(<Demo />, document.getElementById("people"));
+    </script>
+  </body>
+</html>
