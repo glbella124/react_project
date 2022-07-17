@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>life - circle</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      class Life extends React.Component {
+        state = { opacity: 1 };
+
+        constructor(props) {
+          super(props)
+          setInterval(() => {
+            // 获取原始状态
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) opacity = 1;
+            this.setState({ opacity });
+          }, 200);
+        }
+
+        // 卸载组件
+        death = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+        };
+
+        // 需求2s内字体透明度由1变到0，2s过后开始新一轮循环
+        // changeOpacity = () =>{
+        //     setInterval(()=>{
+        //         // 获取原始状态
+        //         let {opacity} = this.state
+        //         opacity -= 0.1
+        //         if(opacity <=0) opacity = 1
+        //         this.setState({opacity})
+        //     },200)
+        // }
+
+        render() {
+          const dom = (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>变化的标题</h2>
+              <button onClick={this.death}>组件消失</button>&nbsp;&nbsp;
+              {/*<button onClick={this.changeOpacity}>组件随着透明度变化</button>*/}
+            </div>
+          );
+
+          return dom;
+        }
+      }
+
+      // 挂载组件
+      ReactDOM.render(<Life />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 
 
 
-## React简介
+## 1. React简介
 
 1. 用于构建用户界面的JavaScript库
    发送请求获取数据
@@ -27,7 +27,7 @@
 
 5. 声明式编码 - React自己操作dom
 
-## React特点
+## 2. React特点
 
 1. 采用组件式模式，声明式编码， 提高开发效率及组件复用率
 
@@ -41,7 +41,7 @@
 
 3. 使用**虚拟DOM**， 优秀的Diffing算法， 尽量减少与真实DOM的交互
 
-## jsx，js创建虚拟DOM方式对比
+## 3. jsx，js创建虚拟DOM方式对比
 
 jsx:创建虚拟dom不繁琐, js创建繁琐
 
@@ -58,7 +58,7 @@ jsx:创建虚拟dom不繁琐, js创建繁琐
 2. 比较轻，React内部在用，无需真实dom上那么多的属性
 3. 最终会被React转化为真实DOM，呈现在页面上
 
-## JSX介绍
+## 4. JSX介绍
 
 react定义的类似于xml的js扩展语法
 
@@ -77,7 +77,7 @@ key用小驼峰
 6.标签必须闭合
 7.标签首字母小写转为html中同名元素，若无该标签对应的HTML同名元素报错；大写React去渲染对应组件，无则报错
 
-## 模块化和组件化
+## 5. 模块化和组件化
 
 #### 模块及模块化
 
@@ -97,12 +97,12 @@ key用小驼峰
 
 
 
-## 严格模式
+## 6. 严格模式
 
 禁止自定义的this指向window
 Babel编译后开启严格模式
 
-## 函数式组件/类式组件
+## 7. 函数式组件/类式组件
 
 类式组件里的render放在类的原型对象上，供实例使用
 
@@ -113,7 +113,7 @@ react解析组件标签，找到组件
 发现组件***由类定义的***，随后new出来该类实例，并通过该实例调用到原型上的render方法
 将render返回的虚拟dom转为真实dom，呈现在页面中
 
-## 组件实例的三大核心属性
+## 8. 组件实例的三大核心属性
 
 ### state
 
@@ -129,8 +129,7 @@ react解析组件标签，找到组件
         };
 4. 状态数据修改 - setState
 
-
-## 类组件中的this指向
+### 类组件中的this指向
 
 ```javascript
 class ChangeWeather extends React.Component {
@@ -235,9 +234,71 @@ https://blog.csdn.net/m0_61843874/article/details/123247934
 1. 自定义的函数
 2. 没有调用
 3. 函数最终执行了
+
+## 9. 事件处理
+
+表单提交
+form action
+不指定请求方式，默认请求是get
+默认带的参数是query参数
+event.target指的是父dom
+当前dom节点
+当前dom节点的值
+
+原生事件
+event.preventDefault
+阻止表单默认事件提交
+
+原生改变事件onchange
+
+#### 非受控组件：
+页面中所有输入类的dom现用现取
+有几个输入项，就需要几个ref
+
+#### 受控类组件:
+页面中所有输入类的dom
+随着输入可以把东西维护到状态里面，等需要用的时候从状态里直接取出来，类似vue里的双向数据绑定，react里没有双向数据绑定
+不用ref
+
+## 10. 高阶函数
+
+1. A函数，接收的参数是一个函数，A即为高阶函数
+
+2. A函数，调用的返回值依然是一个函数，A即为高阶函数
+
+3. 函数的柯里化 - 通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式
+
+   ```javascript
+    // 高阶函数
+               // 调用的返回值是一个函数
+               saveFormData = (dataType) =>{
+                   return (event)=>{
+                       this.setState({[dataType]:event.target.value})
+                   }
+               }
+   ```
+
    
 
+4. 常见的高阶函数 - promise
 
+   ```javascript
+   new Promise(()=>{})
+   
+   setTimout(()=>{})
+   setInterval(()=>{})
+   arr.map(()=>{})
+   ```
 
+## 11. 生命周期
 
+挂载 - mount
+卸载 - unmount
+ReactDOM. 
+unmountComponentAtNode
+
+定时器放在render里
+每调用一次render就会触发一次定时器，
+
+![react生命周期(旧)](E:\Bella\software\react全家桶资料\react全家桶资料\02_原理图\react生命周期(旧).png)
 

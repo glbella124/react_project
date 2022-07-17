@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生命周期案例</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      class Add extends React.Component {
+        constructor(props) {
+          super(props);
+          console.log("constructor");
+          this.state = { count: 0 };
+        }
+
+        // 组件将要挂载的钩子
+        componentWillMount() {
+          console.log("componentWillMount");
+        }
+
+        // 组件挂载完毕的钩子
+        componentDidMount(){
+            console.log("componentDidMount");
+        }
+        addition = () => {
+          const { count } = this.state;
+          this.setState({ count: count + 1 });
+        };
+        render() {
+          console.log("render");
+          const dom = (
+            <div>
+              <h2>当前求和为:{this.state.count}</h2>
+              <button onClick={this.addition}>点击加一</button>
+            </div>
+          );
+          return dom;
+        }
+      }
+      ReactDOM.render(<Add />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

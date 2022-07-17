@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高阶函数，函数柯里化</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        class Login extends React.Component {
+            state = {
+                username:"",
+                password:""
+            }
+            handleSubmit = (event) =>{
+                // 阻止表单提交
+                event.preventDefault()
+                const{username,password} = this.state
+                alert(`Your username is ${username}, and password is ${password}`)
+            }
+            // 高阶函数
+            // 调用的返回值是一个函数
+            saveFormData = (dataType) =>{
+                return (event)=>{
+                    this.setState({[dataType]:event.target.value})
+                }
+            }
+            
+            render() {
+                // 未将saveFormData交给onChange作为回调
+                // 而是将saveFormData的返回值作为onChange回调，现结果为undefined
+                // 必须把函数交给onchange作为回调
+                const dom = (
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange={this.saveFormData("username")} type="text" name="username" />
+                        <input onChange={this.saveFormData("password")} type="password" name="password" />
+                        <button>登录</button>
+                    </form>
+                )
+                return dom
+            }
+        }
+        ReactDOM.render(<Login/>, document.getElementById("test"))
+    </script>
+</body>
+
+</html>

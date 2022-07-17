@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>受控组件</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        class Login extends React.Component {
+            state = {
+                username:"",
+                password:""
+            }
+            handleSubmit = (event) =>{
+                // 阻止表单提交
+                event.preventDefault()
+                const{username,password} = this.state
+                alert(`Your username is ${username}, and password is ${password}`)
+            }
+            saveUsername = (event) =>{
+                // 指向当前节点 event.target
+                this.setState({username:event.target.value})
+                
+            }
+            savePassword = (event) =>{
+                this.setState({password:event.target.value})
+            }
+            render() {
+                const dom = (
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange={this.saveUsername} type="text" name="username" />
+                        <input onChange={this.savePassword} type="text" name="password" />
+                        <button>登录</button>
+                    </form>
+                )
+                return dom
+            }
+        }
+        ReactDOM.render(<Login/>, document.getElementById("test"))
+    </script>
+</body>
+
+</html>
