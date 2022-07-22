@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>初始化渲染</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 生命周期流程
+      // .setState() => shouldComponentUpdate => componentWillUpdate => render => componentDidMount
+      // forceUpdate => componentWillUpdate => render => omponentDidMount
+      class UpdateData extends React.Component {
+        state = { color: "green" };
+
+        // 初始化渲染
+        //组件将要挂载的钩子
+        componentWillMount() {
+          console.log("componentWillMount");
+        }
+
+        //组件挂载完毕的钩子
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+
+        changeColor = () => {
+          this.setState({ color: "red" });
+        };
+
+        //组件将要卸载的钩子
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+        }
+
+        // 卸载组件按钮的回调
+        removeCom = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"));
+        };
+
+        //状态更新 true - changeColor起作用; false - 状态无法更新
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          return false;
+        }
+
+        forceChange = () => {
+          this.forceUpdate();
+        };
+
+        //组件将要更新的钩子
+        componentWillUpdate() {
+          console.log("componentWillUpdate");
+        }
+
+        //组件更新完毕的钩子
+        componentDidUpdate() {
+          console.log("componentDidUpdate");
+        }
+
+        render() {
+          console.log("render");
+          const dom = (
+            <div>
+              <h2>Change color : {this.state.color}</h2>
+              <button onClick={this.changeColor}>改变颜色</button>&nbsp;
+              <button onClick={this.forceChange}>
+                不改变数据，强制更新组件
+              </button>
+              &nbsp;
+              <button onClick={this.removeCom}>移除组件</button>
+            </div>
+          );
+          return dom;
+        }
+      }
+
+      ReactDOM.render(<UpdateData />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

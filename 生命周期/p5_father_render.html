@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>父组件渲染</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /* 
+				1. 初始化阶段: 由ReactDOM.render()触发---初次渲染
+									1.	constructor()
+									2.	componentWillMount()
+									3.	render()
+									4.	componentDidMount() =====> 常用
+													一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+				2. 更新阶段: 由组件内部this.setSate()或父组件render触发
+									1.	shouldComponentUpdate()
+									2.	componentWillUpdate()
+									3.	render() =====> 必须使用的一个
+									4.	componentDidUpdate()
+				3. 卸载组件: 由ReactDOM.unmountComponentAtNode()触发
+									1.	componentWillUnmount()  =====> 常用
+													一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+		*/
+
+      // 父组件渲染路线
+      // componentWillReceiveProps => shouldComponentUpdate => componentWillUpdate => render => componentDidUpdate
+
+      class A extends React.Component {
+        state = { carName: "奔驰" };
+
+        changeName = () => {
+          this.setState({ carName: "宝马" });
+        };
+        render() {
+          const dom = (
+            <div>
+              <h3>我是A组件</h3>
+              <input type="button" value="改变名字" onClick={this.changeName} />
+
+              <B name={this.state.carName} />
+            </div>
+          );
+          return dom;
+        }
+      }
+
+      class B extends React.Component {
+        componentWillReceiveProps(props) {
+          console.log("B -- componentWillReceiveProps", props);
+        }
+        shouldComponentUpdate() {
+          console.log("B -- shouldComponentUpdate");
+          return true;
+        }
+        componentWillUpdate() {
+          console.log("B -- componentWillUpdate");
+        }
+        componentDidUpdate() {
+          console.log("B -- componentDidUpdate");
+        }
+        render() {
+          console.log("B -- render");
+          const dom = (
+            <div>
+              我是B组件 <br /> 我的名字是{this.props.name}
+            </div>
+          );
+          return dom;
+        }
+      }
+
+      ReactDOM.render(<A />, document.getElementById("test"));
+    </script>
+  </body>
+</html>
