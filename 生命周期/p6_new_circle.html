@@ -29,13 +29,28 @@
 
         // UNSAFE - 未来版本会出bug， 尤其是在启用异步渲染之后
         //卸载组件按钮的回调
-        UNSAFE_componentWillMount() {
-          console.log("componentWillMount");
+        // UNSAFE_componentWillMount() {
+        //   console.log("componentWillMount");
+        // }
+
+        // 得到派生的状态 - 不符合规范
+        // 不能在类的实例上调用静态方法,而应该通过类本身调用
+        // 1. state obj; 2. null
+        // 使用条件 - state的值在任何时候都取决于props
+        // 会使代码冗余，基本不用
+        static getDerivedStateFromProps(prevprops,prevstate) {
+          console.log("getDerivedStateFromProps",prevprops,prevstate);
+          return null
         }
 
-        getDerivedStateFromProps() {}
+        getSnapshotBeforeUpdate() {
+          console.log("getSnapshotBeforeUpdate");
+          return "123"
+        }
 
-        getSnapshotBeforeUpdate() {}
+        componentDidUpdate(){
+          console.log("componentDidUpdate");
+        }
 
         //组件挂载完毕的钩子
         componentDidMount() {
@@ -57,6 +72,7 @@
         };
 
         render() {
+          console.log("count -- render");
           const { count } = this.state;
           const dom = (
             <div>

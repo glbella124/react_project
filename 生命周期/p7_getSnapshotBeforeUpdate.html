@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>example - getSnapshotBeforeUpdate</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 120px;
+        background: paleturquoise;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/17.0.1/react.development.js"></script>
+    <script src="../js/17.0.1/react-dom.development.js"></script>
+    <script src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/babel">
+      class NewList extends React.Component {
+        state = { newArr: [] };
+
+        componentDidMount() {
+          setInterval(() => {
+            const { newArr } = this.state;
+            const news = "新闻" + (newArr.length + 1);
+            this.setState({ newArr: [news, ...newArr] });
+          }, 1000);
+        }
+
+        getSnapshotBeforeUpdate(){
+            return this.refs.list.scrollHeight
+        }
+
+        // 能获取到 - 之前的props，之前的state,传过来的高度
+        componentDidUpdate(preProps,preState,height){
+            // 持续维持最新的高度
+            this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+        }
+
+        render() {
+          const dom = (
+            <div className="list" ref="list">
+              {this.state.newArr.map((n, index) => {
+                return (
+                  <div key={index} className="news">
+                    {n}
+                  </div>
+                );
+              })}
+            </div>
+          );
+          return dom;
+        }
+      }
+      ReactDOM.render(<NewList />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

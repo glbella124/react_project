@@ -292,6 +292,8 @@ event.preventDefault
 
 ## 11. 生命周期
 
+#### 旧生命周期
+
 挂载 - mount
 卸载 - unmount
 ReactDOM. 
@@ -302,39 +304,122 @@ unmountComponentAtNode
 
 ![react生命周期(旧)](E:\Bella\software\react全家桶资料\react全家桶资料\02_原理图\react生命周期(旧).png)
 
-组件初次渲染
-constructor构造器
-componentWillMount
-render
-componentDidMount
-(开启定时器，发送网络请求，订阅消息)
-render
-componentWillUnmount
-（关闭定时器，取消订阅）
+##### 旧生命周期的三个阶段（旧）
 
-父组件render
-componentWillReceiveProps
-shouldComponentUpdate
-componentWillUpdate
-render
-componentDidUpdate
-componentWillUnmount
+1. **组件初始化渲染**： 由ReactDOM.render()触发---初次渲染
+   constructor构造器
+   componentWillMount()
+   render()
+   componentDidMount()
 
-setState更新
-shouldComponentUpdate
-componentWillUpdate
-render
-componentDidUpdate
-componentWillUnmount
+2. **更新阶段**： 由组件内部this.setState()或父组件重新render触发
 
-强制更新
-.forceUpdate
-componentWillUpdate
-render
-componentDidUpdate
-componentWillUnmount
+   父组件render
+   componentWillReceiveProps()
+   shouldComponentUpdate()
+   componentWillUpdate()
+   render()
+   componentDidUpdate()
+
+   
+
+   setState更新
+   **shouldComponentUpdate()**
+   **componentWillUpdate()**
+   **render()**
+   **componentDidUpdate()**
+
+   
+
+   强制更新
+   .forceUpdate()
+   componentWillUpdate()
+   render()
+   componentDidUpdate()
+
+3. 卸载组件 ： ReactDOM.unmountComponentAtNode（document.getElementById("test")）触发
+
+   componentWillUnmount()（关闭定时器，取消订阅）
+
+   
+
+   
+
+
+
+#### 新生命周期
 
 新的生命周期和旧的生命周期相比，废弃了或者即将废弃三个钩子
-componentWillMount
-componentWillReceiveProps
-componentWillUpdate
+componentWillMount()
+componentWillReceiveProps()
+componentWillUpdate()
+
+
+
+得到派生的状态
+
+getDerivedStateFromProps
+
+##### 新生命周期的三个阶段（新）
+
+1. 初始化阶段 由ReactDOM.render()触发---初次渲染
+
+   constructor()
+
+   getDerivedStateFromProps()
+
+   **render()  ---------  初始化渲染或者更新渲染调用**
+
+   **componentDidMount()**
+
+2. 更新阶段: 由组件内部this.setSate()或父组件重新render触发
+
+   getDerivedStateFromProps()
+
+   shouldComponentUpdate()
+
+   render()
+
+   getSnapshotBeforeUpdate()
+
+   componentDidUpdate()
+
+3. 卸载组件 ReactDOM.unmountComponentAtNode触发
+
+   componentWillUnmount()
+
+
+
+## 12. diffing算法
+
+#### React/vue 中的key有什么作用？(key内部原理）
+
+1. 虚拟dom中的key - 是虚拟dom的标识
+
+2. 状态数据发生变化时会比较新虚拟dom和旧虚拟dom,
+
+   若二者key相同，就会比较内容
+
+   (1).  内容没变，会使用之前的真实dom
+
+   (2). 内容变了，会生成新的真实dom,替换掉页面之前的真实dom
+
+   
+
+   若旧虚拟dom中没有找到新的dom
+
+   根据数据创新的真实DOM，随后渲染到页面
+
+3. 以index作为key引发的问题
+
+   对数据进行逆序添加，删除操作时 - 会产生没有必要的dom更新，效率低
+
+   结构中包含输入类的dom，会产生错误的dom更新
+
+4. 如何选择key
+
+   数据的唯一标识
+
+   
+
+   
