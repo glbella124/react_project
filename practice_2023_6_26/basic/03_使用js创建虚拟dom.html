@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03_使用js创建虚拟dom</title>
+  </head>
+  <body>
+    <div id="test">
+      <!-- 警告：使用浏览器里的babel翻译器，代码多，babel翻译耗时会耗时-->
+      <!-- 引入react核心库 -->
+      <script
+        type="text/javascript"
+        src="../../js//react.development.js"
+      ></script>
+      <!-- 引入react-dom，用于支持react操作dom -->
+      <script
+        type="text/javascript"
+        src="../../js//react-dom.development.js"
+      ></script>
+      <!-- 此处必须写babel，否则会默认为js标签 -->
+      <script type="text/javascript">
+        // 此处不要写引号，因为不是字符串
+        // const vDom = React.createElement(标签名，标签属性，标签体内容)
+        // babel直接翻译成下面的形式
+        const vDom = React.createElement(
+          "h1",
+          { id: "title" },
+          React.createElement("span", {}, "使用js创建虚拟dom")
+        );
+        ReactDOM.render(vDom, document.getElementById("test"));
+      </script>
+    </div>
+  </body>
+</html>

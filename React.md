@@ -13,7 +13,7 @@
    PubSub -- 消息管理的库
    Redux -- 专门做集中式状态管理的库
    Ant-Design -- UI组件库
-   
+
    React只关注界面
 
 2. 将数据渲染为HTML视图的开JavaScript库
@@ -34,6 +34,12 @@
 
 5. 声明式编码 - React自己操作dom
 
+6. 官网
+
+   https://react.dev/
+
+   https://react.docschina.org/
+
 ## 2. React特点
 
 1. 采用组件式模式，声明式编码， 提高开发效率及组件复用率
@@ -43,14 +49,27 @@
    命令式编码  -  缺一不可
 
 2. 在React Native中可以使用React语法进行移动端开发
+   允许前端人员使用js去编写安卓，ios应用
 
-   (java - 安卓，oc, swift - ios)
+   (java - 安卓；oc, swift - ios)
 
 3. 使用**虚拟DOM**， 优秀的Diffing算法， 尽量减少与真实DOM的交互
 
+4. js基础 -- 判断this指向，class类，ES6语法规范，npm包管理器，原型、原型链，数组常用方法，模块化
+
+5. 高效的原因 -- 使用虚拟dom，操作真实dom之前会对虚拟dom进行比较,比较出有差异的部分再更新页面
+
+6. 相关js库
+
+   react.development.js -- React核心库
+
+   react-dom.js -- 提供操作DOM的**react扩展库**
+
+   babel.min.js -- 解析JSX语法代码转为JS代码库
+
 ## 3. jsx，js创建虚拟DOM方式对比
 
-jsx:创建虚拟dom不繁琐, js创建繁琐
+jsx:创建虚拟dom不繁琐, js创建繁琐(一般不用)
 
 ```js
     <script type="text/javascript">
