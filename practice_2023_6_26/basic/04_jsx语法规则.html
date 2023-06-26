@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04_jsx语法规则</title>
+    <style>
+      .title {
+        background: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test">
+      <!-- 警告：使用浏览器里的babel翻译器，代码多，babel翻译耗时会耗时-->
+      <!-- 引入react核心库 -->
+      <script
+        type="text/javascript"
+        src="../../js//react.development.js"
+      ></script>
+      <!-- 引入react-dom，用于支持react操作dom -->
+      <script
+        type="text/javascript"
+        src="../../js//react-dom.development.js"
+      ></script>
+      <!-- 引入babel,用于将jsx转为js -->
+      <script type="text/javascript" src="../../js/babel.min.js"></script>
+      <!-- 此处必须写babel，否则会默认为js标签 -->
+      <script type="text/babel">
+        const myId = "TestDom";
+        const myData = "Hello, this is my website";
+        const vDOM = (
+          <h2 className="title" id={myId.toLowerCase()}>
+            <span style={{color:'orange',fontSize:'30px'}}>{myData.toLowerCase()}</span>
+          </h2>
+        );
+        ReactDOM.render(vDOM,document.getElementById('test'))
+      </script>
+    </div>
+  </body>
+</html>
