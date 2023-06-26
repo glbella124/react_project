@@ -9,6 +9,11 @@
    处理数据
    操作DOM呈现页面
 
+   React-Router -- 专门做路由的库
+   PubSub -- 消息管理的库
+   Redux -- 专门做集中式状态管理的库
+   Ant-Design -- UI组件库
+
 2. 将数据渲染为HTML视图的开JavaScript库
 
 3. Facebook开发， 开源
