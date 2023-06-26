@@ -13,6 +13,8 @@
    PubSub -- 消息管理的库
    Redux -- 专门做集中式状态管理的库
    Ant-Design -- UI组件库
+   
+   React只关注界面
 
 2. 将数据渲染为HTML视图的开JavaScript库
 
