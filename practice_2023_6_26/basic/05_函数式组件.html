@@ -3,12 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>04_jsx语法规则</title>
-    <style>
-      .title {
-        background: purple;
-      }
-    </style>
+    <title>05_函数式组件</title>
   </head>
   <body>
     <div id="test">
@@ -27,25 +22,11 @@
       <script type="text/javascript" src="../../js/babel.min.js"></script>
       <!-- 此处必须写babel，否则会默认为js标签 -->
       <script type="text/babel">
-        // const myId = "TestDom";
-        // const myData = "Hello, this is my website";
-        // const vDOM = (
-        //   <h2 className="title" id={myId.toLowerCase()}>
-        //     <span style={{color:'orange',fontSize:'30px'}}>{myData.toLowerCase()}</span>
-        //   </h2>
-        // );
-        // ReactDOM.render(vDOM,document.getElementById('test'))
-        const data = ["book1", "book2", "book3"];
-        const vDOM = (
-          <div>
-            <ul>
-              {data.map((v,index) => {
-                return <li key={index}>{v}</li>
-              })}
-            </ul>
-          </div>
-        );
-        ReactDOM.render(vDOM,document.getElementById("test"))
+        function MyComp() {
+          return <h3>这是一个函数式组件</h3>;
+        }
+
+        ReactDOM.render(<MyComp />, document.getElementById("test"));
       </script>
     </div>
   </body>
