@@ -26,26 +26,38 @@
           constructor(props) {
             super(props);
             this.state = { isHot: true };
+            // 防止this丢掉的方法
+            // bind -- 1.生成新的函数；2.改掉函数里的this
+            // 赋值给changeWeather
+            this.changeWeather = this.changeWeather.bind(this)
           }
           render() {
-            return <h3 onClick={demo}>It's {this.state.isHot ? "hot" : "cool"} today!</h3>;
+            // demo() -- 函数直接调用，如果是undefined,则无动作
+            return <h3 onClick={this.changeWeather}>It's {this.state.isHot ? "hot" : "cool"} today!</h3>;
+          }
+
+          
+          // 由于changeWeather作为onClick的回调，不是通过实例调用的，是直接调用
+          changeWeather(){
+            // 类中定义的所有方法已经在局部开启了严格模式
+            // babel也开启了严格模式，所以this丢了
+            console.log(this);
           }
         }
 
         ReactDOM.render(<Weather />, document.getElementById("test"));
-        // class MyComponent extends React.Component {
-        //   render() {
-        //     // MyComponent的原型对象上，供实例使用
-        //     // this -- MyComponent组件实例对象
-        //     return <h3>由类定义的复杂组件</h3>;
-        //   }
-        // }
-
-        function demo(){
-          console.log("demo");
+        let a = new Weather()
+        // weather实例对象
+        a.changeWeather()
+        
+        // 测试
+        function test(){
+          console.log(this);
         }
 
-        // ReactDOM.render(<MyComponent />, document.getElementById("test"));
+        // .bind会返回新函数
+        const x = test.bind({a:1,b:2})
+        console.log(x);
       </script>
     </div>
   </body>
