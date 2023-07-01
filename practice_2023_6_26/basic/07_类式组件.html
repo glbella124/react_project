@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>05_函数式组件</title>
+    <title>07_类式组件</title>
   </head>
   <body>
     <div id="test">
@@ -22,12 +22,15 @@
       <script type="text/javascript" src="../../js/babel.min.js"></script>
       <!-- 此处必须写babel，否则会默认为js标签 -->
       <script type="text/babel">
-        // 开启了严格模式
-        function MyComp() {
-          return <h3>这是一个函数式组件</h3>;
+        class MyComponent extends React.Component {
+          render() {
+            // MyComponent的原型对象上，供实例使用
+            // this -- MyComponent组件实例对象
+            return <h3>由类定义的复杂组件</h3>;
+          }
         }
 
-        ReactDOM.render(<MyComp />, document.getElementById("test"));
+        ReactDOM.render(<MyComponent />, document.getElementById("test"));
       </script>
     </div>
   </body>

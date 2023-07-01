@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>06_class练习</title>
+  </head>
+  <body>
+    <script>
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        speak() {
+          // this指Person实例
+          console.log(`${this.name}:${this.age}`);
+        }
+      }
+
+      let p1 = new Person("Bella", 18);
+      // call -- 可以更改函数里的this指向
+      p1.speak.call({ a: 1, b: 2 });
+
+      class Student extends Person {
+        constructor(name, age, grade) {
+          // super必须放到所有人之前
+          super(name, age);
+          this.grade = grade;
+        }
+        say() {
+          console.log(`This is a new student!`);
+        }
+      }
+
+      let s1 = new Student("Tom", 20, "五年级");
+      console.log(s1);
+      s1.say();
+    </script>
+  </body>
+</html>

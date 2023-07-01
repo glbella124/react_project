@@ -151,6 +151,17 @@ Babel编译后开启严格模式
 
 类式组件里的render放在类的原型对象上，供实例使用
 
+```jsp
+函数式组件：
+执行了ReactDOM.render()后发生了什么
+1. React解析组件标签，找到MyComponent组件
+2. 发现组件是由函数定义的，随后调用该函数，将返回的虚拟DOM转为真实DOM，随后呈现在页面中
+```
+
+**组件里的this是undefined,因为babel编译后开启了严格模式**
+
+##### 执行ReactDOM.render后发生了什么？
+
 React dom.render
 react解析组件标签，找到组件
 发现组件***由函数定义***，调用函数，将返回的虚拟dom转为真实dom呈现在页面上
@@ -158,13 +169,28 @@ react解析组件标签，找到组件
 发现组件***由类定义的***，随后new出来该类实例，并通过该实例调用到原型上的render方法
 将render返回的虚拟dom转为真实dom，呈现在页面中
 
+```jsp
+class：
+1. 类中构造器非必须，对实例进行初始化操作时才写
+2. 若A类继承B类，且A类写了构造器，必须写super
+3. 类中定义的方法都放在了类的原型对象上，供实例使用
+
+```
+
+
+
 ## 8. 组件实例的三大核心属性
+
+复杂组件 -- 有state状态
+
+简单组件 -- 无state状态
 
 ### state
 
 1. 组件被称为“状态机”，通过更新组件state更新对应的页面显示（频繁调用render- 重新渲染组件），组件维护状态，状态存着数据
-2. 组件render中的this为组件实例对象
-3. 自定义方法中this为undefined (作为事件回调)
+2. 状态驱动着页面显示
+3. 组件render中的this为组件实例对象
+4. 自定义方法中this为undefined (作为事件回调)
    <!-- 强制绑定this -->
     this.weather = this.change.bind(this);
     <!-- 箭头函数 -->
@@ -172,7 +198,7 @@ react解析组件标签，找到组件
           const isHot = this.state.isHot;
           this.setState({ isHot: !isHot });
         };
-4. 状态数据修改 - setState
+5. 状态数据修改 - setState
 
 ### 类组件中的this指向
 
@@ -211,6 +237,8 @@ class ChangeWeather extends React.Component {
 ```
 
 #### 严格模式？
+
+特点： 禁止自定义函数里的this指向window
 
 在普通模式中，如果一个变量没有声明就赋值，默认是全局变量，严格模式禁止这种用法，变量都必须先用var命令声明，然后再使用。
 
