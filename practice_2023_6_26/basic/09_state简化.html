@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>08_状态及事件绑定</title>
+    <title>09_state简化</title>
   </head>
   <body>
     <div id="test">
@@ -23,49 +23,29 @@
       <!-- 此处必须写babel，否则会默认为js标签 -->
       <script type="text/babel">
         class Weather extends React.Component {
-          constructor(props) {
-            super(props);
-            this.state = { isHot: true };
-            // 防止this丢掉的方法
-            // bind -- 1.生成新的函数；2.改掉函数里的this
-            // 赋值给changeWeather
-            this.changeWeather = this.changeWeather.bind(this);
-          }
+          // 初始化状态
 
-          
+          state = { isHot: false, wind: "wind" };
+
           render() {
-            const {isHot} = this.state
-            // demo() -- 函数直接调用，如果是undefined,则无动作
+            // render的this -- 组件实例对象
+            console.log(this);
+            const isHot = this.state.isHot;
             return (
-              <h3 onClick={this.changeWeather}>
+              <h2 onClick={this.changeWeather}>
                 It's {isHot ? "hot" : "cool"} today!
-              </h3>
+              </h2>
             );
           }
-
-          // 由于changeWeather作为onClick的回调，不是通过实例调用的，是直接调用
-          changeWeather() {
-            // 类中定义的所有方法已经在局部开启了严格模式
-            // babel也开启了严格模式，所以this丢了
-            // console.log(this);
+          // 箭头函数 -- 指向外侧的this -- 实例对象
+          // 自定义方法 -- 赋值语句 + 箭头函数
+          changeWeather = () => {
             const isHot = this.state.isHot;
             this.setState({ isHot: !isHot });
-          }
+          };
         }
 
         ReactDOM.render(<Weather />, document.getElementById("test"));
-        // let a = new Weather();
-        // weather实例对象
-        // a.changeWeather();
-
-        // 测试
-        // function test() {
-          // console.log(this);
-        // }
-
-        // .bind会返回新函数
-        // const x = test.bind({ a: 1, b: 2 });
-        // console.log(x);
       </script>
     </div>
   </body>

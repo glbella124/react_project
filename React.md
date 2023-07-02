@@ -198,7 +198,7 @@ class：
           const isHot = this.state.isHot;
           this.setState({ isHot: !isHot });
         };
-5. 状态数据修改 - setState
+5. 状态数据修改 - this.setState({isHot: ! isHot })
 
 ### 类组件中的this指向
 
@@ -210,6 +210,7 @@ class ChangeWeather extends React.Component {
           super(props);
           this.state = { isHot: false };
         }
+          // 调用1+n次 -- 1：初始化；n: 状态更新的次数
         render() {
           //   console.log(this);
           //   const isHot = this.state.isHot
@@ -235,6 +236,12 @@ class ChangeWeather extends React.Component {
 
       ReactDOM.render(<ChangeWeather />, document.getElementById("test"));
 ```
+
+```jsp
+//箭头函数会找寻外层函数的this
+```
+
+
 
 #### 严格模式？
 
