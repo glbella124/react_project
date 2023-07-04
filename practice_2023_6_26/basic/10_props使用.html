@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>09_state简化</title>
-  </head>
-  <body>
-    <div id="test">
-      <!-- 警告：使用浏览器里的babel翻译器，代码多，babel翻译耗时会耗时-->
-      <!-- 引入react核心库 -->
-      <script
-        type="text/javascript"
-        src="../../js//react.development.js"
-      ></script>
-      <!-- 引入react-dom，用于支持react操作dom -->
-      <script
-        type="text/javascript"
-        src="../../js//react-dom.development.js"
-      ></script>
-      <!-- 引入babel,用于将jsx转为js -->
-      <script type="text/javascript" src="../../js/babel.min.js"></script>
-      <!-- 此处必须写babel，否则会默认为js标签 -->
-      <script type="text/babel">
-        class Weather extends React.Component {
-          // 初始化状态
 
-          state = { isHot: false, wind: "wind" };
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10_props使用</title>
+</head>
 
-          render() {
-            const isHot = this.state.isHot;
-            return (
-              <h2 onClick={this.changeWeather}>
-                It's {isHot ? "hot" : "cool"} today!
-              </h2>
-            );
-          }
-          // 箭头函数 -- 指向外侧的this -- 实例对象
-          // 自定义方法 -- 赋值语句 + 箭头函数
-          changeWeather = () => {
-            console.log(this);
-            // const isHot = this.state.isHot;
-            // this.setState({ isHot: !isHot });
-          };
-        }
+<body>
+  <div id="test1">
+  </div>
+  <div id="test2"></div>
+  <!-- 警告：使用浏览器里的babel翻译器，代码多，babel翻译耗时会耗时-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../js//react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作dom -->
+  <script type="text/javascript" src="../../js//react-dom.development.js"></script>
+  <!-- 引入babel,用于将jsx转为js -->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <!-- 引入prop-types -->
+  <script type="text/javascript" src="../../js/prop-types.js"></script>
+  <!-- 此处必须写babel，否则会默认为js标签 -->
+  <script type="text/babel">
+    class Book extends React.Component {
+      render() {
+        const { name, type, price } = this.props
+        return (
+          <ul>
+            <li>{name}</li>
+            <li>{type}</li>
+            <li>{price}</li>
+          </ul>
+        )
+      }
 
-        ReactDOM.render(<Weather />, document.getElementById("test"));
-      </script>
-    </div>
-  </body>
+
+    }
+
+    Book.propTypes = {
+      name:PropTypes.string.isRequired,
+      type:PropTypes.string,
+      price:PropTypes.number
+    }
+
+    const b1 = { name: "aaa", type: "novel", price: 11 }
+    const b2 = { name: "bbb", type: "fiction", price: 12 }
+    ReactDOM.render(<Book {...b1} />, document.getElementById("test1"))
+    ReactDOM.render(<Book {...b2} />, document.getElementById("test2"))
+
+  </script>
+
+</body>
+
 </html>
