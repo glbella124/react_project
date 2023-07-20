@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11_函数式组件_props使用</title>
+</head>
+
+<body>
+  <div id="test1">
+  </div>
+  <div id="test2"></div>
+  <!-- 警告：使用浏览器里的babel翻译器，代码多，babel翻译耗时会耗时-->
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../../js//react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作dom -->
+  <script type="text/javascript" src="../../js//react-dom.development.js"></script>
+  <!-- 引入babel,用于将jsx转为js -->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <!-- 引入prop-types -->
+  <script type="text/javascript" src="../../js/prop-types.js"></script>
+  <!-- 此处必须写babel，否则会默认为js标签 -->
+  <script type="text/babel">
+    function Book(props) {
+      const { name, price } = props
+      const dom = (<ul><li>{name}</li><li>{price}</li></ul>)
+      return dom
+    }
+
+    Book.propTypes = {
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number
+    }
+
+    Book.defaultProps = {
+      name: "test",
+      price: 20
+    }
+
+    const obj = {
+      name: "Bella",
+      price: 27
+    }
+
+    ReactDOM.render(<Book {...obj}/>, document.getElementById("test2"))
+  </script>
+
+</body>
+
+</html>
