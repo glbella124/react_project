@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高阶函数，不用柯里化实现</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      class Login extends React.Component {
+        state = {
+          username: "",
+          password: "",
+        };
+        handleSubmit = (event) => {
+          event.preventDefault();
+          const { username, password } = this.state;
+          console.log(username, password);
+        };
+        saveFormData = (dataType, event) => {
+          this.setState({ [dataType]: event.target.value });
+        };
+        render() {
+          const dom = (
+            <form onSubmit={this.handleSubmit}>
+              <input
+                onChange={(event) => {
+                  this.saveFormData("username", event);
+                }}
+                type="text"
+                name="username"
+              />
+              <input
+                type="password"
+                name="password"
+                onChange={(event) => {
+                  this.saveFormData("password", event);
+                }}
+              />
+              <button>登录</button>
+            </form>
+          );
+          return dom;
+        }
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高阶函数，函数柯里化</title>
-</head>
-
-<body>
+      ReactDOM.render(<Login />, document.getElementById("test"));
+    </script>
+  </body>
+  <!-- <body>
     <div id="test"></div>
     <script src="../js/react.development.js"></script>
     <script src="../js/react-dom.development.js"></script>
@@ -46,6 +90,5 @@
         }
         ReactDOM.render(<Login/>, document.getElementById("test"))
     </script>
-</body>
-
+</body> -->
 </html>
