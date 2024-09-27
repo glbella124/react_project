@@ -25,9 +25,9 @@
         showData = () => {
           alert(this.myRef.current.value);
         };
-        showData2 = ()=>{
-           alert(this.myRef2.current.value) 
-        }
+        showData2 = (e) => {
+          alert(e.target.value);
+        };
         render() {
           const { isHot } = this.state;
           const dom = (
@@ -42,7 +42,6 @@
               <input
                 onBlur={this.showData2}
                 type="text"
-                ref={this.myRef2}
                 placeholder="点击按钮提示数据"
               />
             </div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>life_circle</title>
+  </head>
+  <body>
+    <div id="people"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      class Life extends React.Component {
+        state = {
+          opacity: 1,
+        };
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            let { opacity } = this.state;
+            opacity -= 0.2;
+            if (opacity <= 0) opacity = 1;
+            this.setState({ opacity: opacity });
+          },1000);
+        }
+        componentWillUnmount() {
+            clearInterval(this.timer)
+        }
+        render() {
+          return (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>变化的标题</h2>
+              <button></button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Life />, document.getElementById("people"));
+    </script>
+  </body>
+</html>

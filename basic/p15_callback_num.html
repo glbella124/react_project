@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>回调函数执行次数的问题</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="people"></div>
     <script src="../js/babel.min.js"></script>
     <script src="../js/react.development.js"></script>
@@ -16,6 +15,37 @@
     <!-- 用于对组件标签属性进行限制 PropTypes -->
     <script src="../js/prop-types.js"></script>
     <script type="text/babel">
+      class Demo extends React.Component {
+        state = {
+          isHot: true,
+        };
+        changeWeather = () => {
+          const { isHot } = this.state;
+          this.setState({ isHot: !isHot });
+        };
+        // 类绑定的回调 -- saveInput放在实例自身，而没有直接作为回调
+        saveInput = (c) =>{
+            this.input1 = c
+        }
+        render() {
+          const { isHot } = this.state;
+          return (
+            <div>
+              <h2>今天天气很{isHot ? `炎热` : `凉爽`}</h2>
+              {/* <input
+                ref={(node) => {
+                  console.log(node);
+                }}
+              /> */}
+              <input ref={this.saveInput}/>
+              <button onClick={this.changeWeather}>点我切换天气</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Demo/>,document.getElementById('people'))
+    </script>
+    <!-- <script type="text/babel">
         // 字符串类型的ref未来会废除
         class Demo extends React.Component {
             state = { isHot: true };
@@ -72,7 +102,6 @@
             }
         }
         ReactDOM.render(<Demo />, document.getElementById("people"));
-    </script>
-</body>
-
+    </script> -->
+  </body>
 </html>

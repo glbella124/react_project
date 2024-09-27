@@ -14,6 +14,30 @@
     <!-- 用于对组件标签属性进行限制 PropTypes -->
     <script src="../js/prop-types.js"></script>
     <script type="text/babel">
+      class Demo extends React.Component {
+        showData = () =>{
+          const {input1} = this
+          console.log(input1.value); 
+        }
+        render() {
+          return (
+            <div>
+              <input
+                ref={(a) => {
+                  this.input1 = a
+                }}
+                type="text"
+                placeholder="点击按钮提示数据"
+              />
+              &nbsp;
+              <button onClick={this.showData}>点我提示左侧数据</button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Demo />, document.getElementById("people"));
+    </script>
+    <!-- <script type="text/babel">
       // 字符串类型的ref未来会废除
       class Demo extends React.Component {
         // 自定义方法 - 要用赋值语句的形式 + 箭头函数
@@ -47,6 +71,6 @@
         }
       }
       ReactDOM.render(<Demo />, document.getElementById("people"));
-    </script>
+    </script> -->
   </body>
 </html>
