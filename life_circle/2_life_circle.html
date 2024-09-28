@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>life_circle</title>
+  </head>
+  <body>
+    <div id="people"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      class Count extends React.Component {
+        // 构造器
+        constructor(props) {
+          super(props);
+          this.state = {
+            count: 0,
+          };
+        }
+        add = () => {
+          const { count } = this.state;
+          this.setState({ count: count + 1 });
+        };
+        death = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("people"));
+        };
+
+        force = () => {
+          this.forceUpdate()
+        };
+        // 将要挂载的钩子
+        componentWillMount() {
+          console.log("will - mount");
+        }
+        // 挂载完毕的钩子
+        componentDidMount() {
+          console.log("did - mount");
+        }
+        // 将要卸载的钩子
+        componentWillUnmount() {
+          console.log("will-unmount");
+        }
+        // 控制组件更新的阀门
+        shouldComponentUpdate() {
+          console.log("should-update");
+          return false;
+        }
+        componentWillUpdate() {
+          console.log("will-update");
+        }
+        componentDidUpdate() {
+          console.log("did-update");
+        }
+        render() {
+          return (
+            <div>
+              <h2>当前求和为:{this.state.count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              <button onClick={this.death}>卸载组件</button>
+              <button onClick={this.force}>
+                不更改任何状态中的数据，强制更新一下
+              </button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Count />, document.getElementById("people"));
+    </script>
+  </body>
+</html>
