@@ -34,6 +34,7 @@
           this.forceUpdate();
         };
 
+        // 若state的值在任何时候都取决于props,可以使用getDerivedStateFromProps 
         static getDerivedStateFromProps(props,state){
             // console.log('derivedFromProps',props,state);
             return null
